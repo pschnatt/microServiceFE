@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Suspense, lazy } from 'react';
 import './App.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import SearchItem from "./SearchItem";
+
+const Mfe3 = lazy(() => import('mfe3/App'));
 
 const mockRestaurant = [
   {
@@ -27,7 +30,51 @@ const mockRestaurant = [
     rating: 5,
     totalSeats: 10,
     description: "Hello world"
-  }
+  },
+  {
+    restaurantId: "1234455",
+    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
+    name: "TESTTT",
+    address: "123 Main St",
+    phoneNumber: "12341244",
+    startingPrice: 12,
+    rating: 10,
+    totalSeats: 10,
+    description: "asdfafsdf"
+  },
+  {
+    restaurantId: "77777777776",
+    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
+    name: "SECONDD",
+    address: "123 Main St",
+    phoneNumber: "990099009",
+    startingPrice: 99.99,
+    rating: 5,
+    totalSeats: 10,
+    description: "Hello world"
+  },
+  {
+    restaurantId: "1234455",
+    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
+    name: "TESTTT",
+    address: "123 Main St",
+    phoneNumber: "12341244",
+    startingPrice: 12,
+    rating: 10,
+    totalSeats: 10,
+    description: "asdfafsdf"
+  },
+  {
+    restaurantId: "77777777776",
+    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
+    name: "SECONDD",
+    address: "123 Main St",
+    phoneNumber: "990099009",
+    startingPrice: 99.99,
+    rating: 5,
+    totalSeats: 10,
+    description: "Hello world"
+  },
 ];
 
 const App = () => {
@@ -90,19 +137,22 @@ const App = () => {
             </div>
             <button>Search</button>
           </div>
-          <div className="listResult">
-            {filteredRestaurants.map((restaurant) => (
-              <SearchItem
-                id={restaurant.restaurantId}
-                imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
-                title={restaurant.name}
-                address={restaurant.address || "N/A"}
-                phoneNumber={restaurant.phoneNumber}
-                startprice={restaurant.startingPrice || "20"}
-                Rating={restaurant.rating || "N/A"}
-                maxseats={restaurant.totalSeats || "30"}
-              />
-            ))}
+          <div className="listSidebar">
+            <div className="listResult">
+              {filteredRestaurants.map((restaurant) => (
+                <SearchItem
+                  id={restaurant.restaurantId}
+                  imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
+                  title={restaurant.name}
+                  address={restaurant.address || "N/A"}
+                  phoneNumber={restaurant.phoneNumber}
+                  startprice={restaurant.startingPrice || "20"}
+                  Rating={restaurant.rating || "N/A"}
+                  maxseats={restaurant.totalSeats || "30"}
+                />
+              ))}
+            </div>
+            <Mfe3 />
           </div>
         </div>
       </div>
