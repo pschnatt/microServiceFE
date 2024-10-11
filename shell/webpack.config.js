@@ -29,6 +29,10 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'], // Use style-loader and css-loader
       },
+      {
+        test: /\.(png|jpg|gif)$/i,   // Handle image files
+        type: 'asset/resource',     // Use Webpack's built-in handling for images
+     },
     ],
   },
   plugins: [

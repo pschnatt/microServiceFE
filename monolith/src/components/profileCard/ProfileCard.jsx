@@ -1,12 +1,13 @@
 import "./profileCard.css"
 import myImage from './profile.png';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+// import { useNavigate } from 'react-router-dom';
 
 const ProfileCard = () => {
-    const navigate = useNavigate();
-    const handleHomePageClick = () => {
-        navigate("/");
-      };
+    // const navigate = useNavigate();
+    // const handleHomePageClick = () => {
+    //     navigate("/");
+    //   };
 
     return (
         <div className="profilecard">
@@ -18,7 +19,7 @@ const ProfileCard = () => {
                     <div className="profileName">
                         <p>Booking ID : {localStorage.getItem("bookingId")}</p>
                     </div>
-                    <button className="editButton" onClick={handleHomePageClick}>Back To Home</button>
+                    <button className="editButton">Back To Home</button>
                 </div>
                 <div className="profileInfo">
                     <div className="profileInfoHeader">
