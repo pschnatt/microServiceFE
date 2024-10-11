@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     static: path.join(__dirname, 'dist'),
-    port: 3002,
+    port: 3001,
   },
   output: {
     publicPath: 'auto',
@@ -22,12 +22,16 @@ module.exports = {
           presets: ['@babel/preset-react'],
         },
       },
+      {
+        test: /\.css$/,  // Rule to handle CSS files
+        use: ['style-loader', 'css-loader'],  // Use these loaders for CSS
+      },
     ],
   },
   plugins: [
     // To learn more about the usage of this plugin, please visit https://webpack.js.org/plugins/module-federation-plugin/
     new ModuleFederationPlugin({
-      name: 'app2',
+      name: 'app1',
       filename: 'remoteEntry.js',
       exposes: {
         './App': './src/App',
