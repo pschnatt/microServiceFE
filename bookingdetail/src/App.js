@@ -1,12 +1,7 @@
-import React from "react";
-import "./bookingde.css";
-// import axios from 'axios';
-// import { toast } from 'react-toastify';
-import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-// import Navbar from "../../components/navbar/Navbar.jsx";
+import React, { useEffect, useState } from 'react';
+import './App.css';
 
-const BookingPage = () => {
+const App = () => {
   const [restaurant, setRestaurant] = useState();
   const [user, setUser] = useState();
   const [tableNumber, setTableNumber] = useState('');
@@ -15,9 +10,7 @@ const BookingPage = () => {
   const [specialReq, setSpecialReq] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Pay at check-in');
   const [status] = useState('Pending');
-
-  const navigate = useNavigate(); // Initialize the navigate function
-
+  
   // Uncomment and implement these functions as needed
   // const fetchRestaurant = async () => {
   //   const id = localStorage.getItem("restaurant_id");
@@ -172,5 +165,4 @@ const BookingPage = () => {
     </div>
   );
 };
-
-export default BookingPage;
+export default App;

@@ -7,10 +7,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     static: path.join(__dirname, 'dist'),
-    port: 3000,
-    headers: {
-      'Access-Control-Allow-Origin': '*', // Enable CORS
-    },
+    port: 3008,
   },
   output: {
     publicPath: 'auto',
@@ -26,8 +23,8 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'], // Use style-loader and css-loader
+        test: /\.css$/,  // Rule to handle CSS files
+        use: ['style-loader', 'css-loader'],  // Use these loaders for CSS
       },
       {
         test: /\.(png|jpg|gif)$/i,   // Handle image files
@@ -36,17 +33,12 @@ module.exports = {
     ],
   },
   plugins: [
+    // To learn more about the usage of this plugin, please visit https://webpack.js.org/plugins/module-federation-plugin/
     new ModuleFederationPlugin({
-      name: 'shell',
-      remotes: {
-        mfe1: 'app1@http://localhost:3001/remoteEntry.js',
-        mfe2: 'app2@http://localhost:3002/remoteEntry.js',
-        mfe3: 'app3@http://localhost:3003/remoteEntry.js',
-        mfe4: 'app4@http://localhost:3004/remoteEntry.js',
-        mfe5: 'app5@http://localhost:3005/remoteEntry.js',
-        mfe6: 'app6@http://localhost:3006/remoteEntry.js',
-        mfe7: 'app7@http://localhost:3007/remoteEntry.js',
-        mfe8: 'app8@http://localhost:3008/remoteEntry.js',
+      name: 'app8',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './App': './src/App',
       },
       shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
     }),
