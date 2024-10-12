@@ -1,43 +1,116 @@
-.signup-form-container {
-    width: 300px;
-    margin: 100px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ddd;
+  font-size: 14px;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  padding: 20px; /* Added padding to ensure content is spaced from edges */
+}
+
+.container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 800px; /* Set maximum width */
+  height: 650px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to container */
+}
+
+.forms-container {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Ensures content is not too close to the edges */
+}
+
+.form-control {
+  width: 100%;
+  max-width: 100%; /* Ensure form control doesn't overflow */
+  padding: 20px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #efefef;
+}
+
+form button {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #059669;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.socials {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.socials i {
+  margin: 0 10px;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.intros-container {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(170deg, #34d399, #059669);
+  color: white;
+  padding: 20px;
+}
+
+.intro-control {
+  text-align: center;
+}
+
+p {
+  margin: 10px 30px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto; /* Make height flexible for small screens */
   }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input {
+
+  .forms-container, .intros-container {
     width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+    height: auto; /* Adjust height to fit content */
   }
-  
-  .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
-  
+}

@@ -27,7 +27,7 @@ const App = () => {
         //     });
         //     if (data.error) {
         //         toast.error(data.error);
-        //     } else {
+        //     } else { 
         //         setData({});
         //         toast.success("Sign Up Successful!");
         //         navigate("/login");
@@ -37,79 +37,83 @@ const App = () => {
         // }
         console.log("Successfully Click the Register button");
     };
-
     return (
-        <div className="signup-form-container">
-            <form>
-                <h2>Sign Up</h2>
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="username"
-                        id="username"
-                        value={data.username}
-                        onChange={(e) =>
-                            setData({ ...data, username: e.target.value })
-                        }
-                        required
-                    />
+        <div className="container">
+            <div className="forms-container">
+                {/* Signup Form */}
+                <div className="form-control signup-form">
+                    <form action="#">
+                        <h2>Signup</h2>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={data.username}
+                            onChange={(e) =>
+                                setData({ ...data, username: e.target.value })
+                            }
+                            required
+                        />
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={data.email}
+                            onChange={(e) =>
+                                setData({ ...data, email: e.target.value })
+                            }
+                            required
+                        />
+                        <input
+                            type="text"
+                            placeholder="Phone Number"
+                            value={data.phonenumber}
+                            onChange={(e) =>
+                                setData({ ...data, phonenumber: e.target.value })
+                            }
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={data.password}
+                            onChange={(e) =>
+                                setData({ ...data, password: e.target.value })
+                            }
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Confirm password"
+                            value={data.cpassword}
+                            onChange={(e) =>
+                                setData({ ...data, cpassword: e.target.value })
+                            }
+                            required
+                        />
+                        <button type="button" onClick={onSIGNINTextClick}>
+                            Signup
+                        </button>
+                    </form>
+                    <span>or signup with</span>
+                    <div className="socials">
+                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-google-plus-g"></i>
+                        <i className="fab fa-linkedin-in"></i>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={data.email}
-                        onChange={(e) =>
-                            setData({ ...data, email: e.target.value })
-                        }
-                        required
-                    />
+            </div>
+
+            <div className="intros-container">
+                {/* Signup Intro */}
+                <div className="intro-control signup-intro">
+                    <div className="intro-control__inner">
+                        <h2>Come join us!</h2>
+                        <p>
+                            Create an account to enjoy exclusive offers, rewards, and more! We look forward to having you on board.
+                        </p>
+                        <button id="signin-btn">Already have an account? Signin.</button>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">phonenumber:</label>
-                    <input
-                        type="phoneNumber"
-                        id="phoneNumber"
-                        value={data.phonenumber}
-                        onChange={(e) =>
-                            setData({ ...data, phonenumber: e.target.value })
-                        }
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={data.password}
-                        onChange={(e) =>
-                            setData({ ...data, password: e.target.value })
-                        }
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="confirm-password">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="confirm-password"
-                        value={data.cPassword}
-                        onChange={(e) =>
-                            setData({ ...data, cpassword: e.target.value })
-                        }
-                        required
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="submit-button"
-                    onClick={onSIGNINTextClick}
-                >
-                    Sign Up
-                </button>
-            </form>
+            </div>
         </div>
     );
 };

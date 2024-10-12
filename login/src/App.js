@@ -37,41 +37,53 @@ const App = () => {
         console.log("Successfully Click the Login button");
     };
     return (
-        <div className="login-form-container">
-            <form>
-                <h2>Login</h2>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={data.email}
-                        onChange={(e) =>
-                            setData({ ...data, email: e.target.value })
-                        }
-                        required
-                    />
+        <div className="container">
+            <div className="forms-container">
+                <div className="form-control signin-form">
+                    <form>
+                        <h2>Signin</h2>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={data.username}
+                            onChange={(e) =>
+                                setData({ ...data, username: e.target.value })
+                            }
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={data.password}
+                            onChange={(e) =>
+                                setData({ ...data, password: e.target.value })
+                            }
+                            required
+                        />
+                        <button type="button" onClick={handleLogin}>
+                            Signin
+                        </button>
+                    </form>
+                    <span>or signin with</span>
+                    <div className="socials">
+                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-google-plus-g"></i>
+                        <i className="fab fa-linkedin-in"></i>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={data.password}
-                        onChange={(e) =>
-                            setData({ ...data, password: e.target.value })
-                        }
-                        required
-                    />
+            </div>
+
+            <div className="intros-container">
+                <div className="intro-control signin-intro">
+                    <div className="intro-control__inner">
+                        <h2>Welcome back!</h2>
+                        <p>
+                            Welcome back! We are so happy to have you here. It's great to see you again. We hope you had a safe and enjoyable time away.
+                        </p>
+                        <button id="signup-btn">No account yet? Signup.</button>
+                    </div>
                 </div>
-                <button
-                    type="submit"
-                    className="submit-button"
-                    onClick={handleLogin}
-                >
-                    Login
-                </button>
-            </form>
+            </div>
         </div>
     );
 };
