@@ -1,7 +1,5 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
-import LoginForm from '../../monolith/src/Pages/Login/LoginForm.jsx';
-import SignUpForm from '../../monolith/src/Pages/Register/SignUpForm.jsx';
 import Navbar from '../components/navbar/Navbar.jsx'
 import Header from '../components/header/Header.jsx';
 import Mfe4 from 'mfe4/App';
@@ -61,7 +59,6 @@ const App = () => {
                         <Route path="/completeBooking" element={<Confirmbooking />} /> {/* Route for complete booking */}
                         <Route path="/restaurantde" element={<Restaurantdetail />} /> {/* Route for restaurant detail */}
                         <Route path="/restaurant" element={<Mfe4 />} />
-                        <Route path="/login" element={<LoginForm />} /> 
                         <Route path="/payment" element={<Payment />} /> 
                     </Routes>
                 </Suspense>
