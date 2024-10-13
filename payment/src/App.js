@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
-import { Header } from "antd/es/layout/layout";
 
 const App = () => {
     const [data, setData] = useState({
@@ -22,9 +21,13 @@ const App = () => {
         setData({ ...data, [name]: value });
     };
 
+    
+    const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form submitted", data);
+        navigate("/completeBooking");
         // Add your submit logic here
     };
 

@@ -45,21 +45,6 @@ const App = () => {
             <div>
                 <NavbarWrapper />
                 <HeaderWrapper />
-                <nav>
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/login">Micro Frontend 1</Link></li>
-                        <li><Link to="/register">Micro Frontend 2</Link></li>
-                        <li><Link to="/bookinghistory">Booking History</Link></li>
-                        <li><Link to="/bookingdetail">Booking Detail</Link></li> {/* New link */}
-                        <li><Link to="/completeBooking">Complete Booking</Link></li> {/* New link */}
-                        <li><Link to="/restaurantde">Restaurant Detail</Link></li> {/* New link */}
-                        <li><Link to="/restaurant">Restaurant List</Link></li>
-                        <li><Link to="/payment">Payment</Link></li>
-
-                    </ul>
-                </nav>
-
                 {/* Suspense for lazy loading */}
                 <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
@@ -79,5 +64,17 @@ const App = () => {
         </Router>
     );
 };
-
 export default App;
+                // {/* <nav>
+                //     <ul>
+                //         <li><Link to="/">Home</Link></li>
+                //         <li><Link to="/login">Micro Frontend 1</Link></li>
+                //         <li><Link to="/register">Micro Frontend 2</Link></li>
+                //         <li><Link to="/bookinghistory">Booking History</Link></li>
+                //         <li><Link to="/bookingdetail">Booking Detail</Link></li> {/* New link */}
+                //         <li><Link to="/completeBooking">Complete Booking</Link></li> {/* New link */}
+                //         <li><Link to="/restaurantde">Restaurant Detail</Link></li> {/* New link */}
+                //         <li><Link to="/restaurant">Restaurant List</Link></li>
+                //         <li><Link to="/payment">Payment</Link></li>
+                //     </ul>
+                // </nav> */}
