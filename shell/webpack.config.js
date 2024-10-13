@@ -48,7 +48,7 @@ module.exports = {
         mfe7: 'app7@http://localhost:3007/remoteEntry.js',
         mfe8: 'app8@http://localhost:3008/remoteEntry.js',
       },
-      shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
+      shared: { react: { singleton: true }, 'react-dom': { singleton: true }, "react-router-dom": { singleton: true } },
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',

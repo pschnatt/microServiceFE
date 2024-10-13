@@ -38,82 +38,79 @@ const App = () => {
         console.log("Successfully Click the Register button");
     };
     return (
-        <div className="container">
-            <div className="forms-container">
-                {/* Signup Form */}
-                <div className="form-control signup-form">
-                    <form action="#">
-                        <h2>Signup</h2>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            value={data.username}
-                            onChange={(e) =>
-                                setData({ ...data, username: e.target.value })
-                            }
-                            required
-                        />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={data.email}
-                            onChange={(e) =>
-                                setData({ ...data, email: e.target.value })
-                            }
-                            required
-                        />
-                        <input
-                            type="text"
-                            placeholder="Phone Number"
-                            value={data.phonenumber}
-                            onChange={(e) =>
-                                setData({ ...data, phonenumber: e.target.value })
-                            }
-                            required
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={data.password}
-                            onChange={(e) =>
-                                setData({ ...data, password: e.target.value })
-                            }
-                            required
-                        />
-                        <input
-                            type="password"
-                            placeholder="Confirm password"
-                            value={data.cpassword}
-                            onChange={(e) =>
-                                setData({ ...data, cpassword: e.target.value })
-                            }
-                            required
-                        />
-                        <button type="button" onClick={onSIGNINTextClick}>
-                            Signup
-                        </button>
-                    </form>
-                    <span>or signup with</span>
-                    <div className="socials">
-                        <i className="fab fa-facebook-f"></i>
-                        <i className="fab fa-google-plus-g"></i>
-                        <i className="fab fa-linkedin-in"></i>
-                    </div>
-                </div>
-            </div>
+        <div className="loginPage-container"> {/* Consider renaming class to registerPage-container */}
+            <h1 className="loginPage-title">Sign Up</h1>
+            <h3>Enter your registration details</h3>
+            <form onSubmit={onSIGNINTextClick}>
+                <label htmlFor="email" className="loginPage-label">
+                    Email:
+                </label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your Email"
+                    className="loginPage-input"
+                    value={data.email}
+                    onChange={(e) => setData({ ...data, email: e.target.value })}
+                    required
+                />
 
-            <div className="intros-container">
-                {/* Signup Intro */}
-                <div className="intro-control signup-intro">
-                    <div className="intro-control__inner">
-                        <h2>Come join us!</h2>
-                        <p>
-                            Create an account to enjoy exclusive offers, rewards, and more! We look forward to having you on board.
-                        </p>
-                        <button id="signin-btn">Already have an account? Signin.</button>
-                    </div>
+                <label htmlFor="phoneNumber" className="loginPage-label">
+                    Phone Number:
+                </label>
+                <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter your Phone Number"
+                    className="loginPage-input"
+                    value={data.phoneNumber}
+                    onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                    required
+                />
+
+                <label htmlFor="password" className="loginPage-label">
+                    Password:
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your Password"
+                    className="loginPage-input"
+                    value={data.password}
+                    onChange={(e) => setData({ ...data, password: e.target.value })}
+                    required
+                />
+
+                <label htmlFor="confirmPassword" className="loginPage-label">
+                    Confirm Password:
+                </label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm your Password"
+                    className="loginPage-input"
+                    value={data.confirmPassword}
+                    onChange={(e) => setData({ ...data, confirmPassword: e.target.value })}
+                    required
+                />
+
+                <div className="loginPage-wrap">
+                    <button type="submit" className="loginPage-button">
+                        Register
+                    </button>
                 </div>
-            </div>
+            </form>
+
+            <p>
+                Already registered? 
+                <a href="#" style={{ textDecoration: "none" }}>
+                    Sign in here
+                </a>
+            </p>
         </div>
     );
 };

@@ -85,18 +85,24 @@
 
 // export default App;
 
-import React, { useState } from "react";
-import "./LoginPage.css";
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import "./LoginPage.css"; // Make sure your CSS is imported correctly
 
-const App = () => {
+const LoginPage = () => {
     const [data, setData] = useState({
         email: "",
         password: "",
     });
 
+    const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
+
     const handleLogin = async (e) => {
         e.preventDefault();
         console.log("Successfully clicked the Login button");
+
+        // After successful login, navigate to the Home page
+        navigate("/"); // Ensure this route exists in your shell app
     };
 
     return (
@@ -104,14 +110,13 @@ const App = () => {
             <h1 className="loginPage-title">Sign In</h1>
             <h3>Enter your login credentials</h3>
             <form onSubmit={handleLogin}>
-                <label htmlFor="first" className="loginPage-label">
-                    Username:
+                <label htmlFor="email" className="loginPage-label">
+                    Email:
                 </label>
                 <input
-                    type="text"
-                    id="first"
-                    name="first"
-                    placeholder="Enter your Username"
+                    type="email"
+                    id="email"
+                    placeholder="Enter your Email"
                     className="loginPage-input"
                     value={data.email}
                     onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -124,7 +129,6 @@ const App = () => {
                 <input
                     type="password"
                     id="password"
-                    name="password"
                     placeholder="Enter your Password"
                     className="loginPage-input"
                     value={data.password}
@@ -133,7 +137,7 @@ const App = () => {
                 />
 
                 <div className="loginPage-wrap">
-                    <button type="submit" className="loginPage-button">
+                    <button className="loginPage-button" type="submit">
                         Submit
                     </button>
                 </div>
@@ -141,12 +145,13 @@ const App = () => {
 
             <p>
                 Not registered? 
-                <a href="#" style={{ textDecoration: "none" }}>
-                    Create an account
-                </a>
+                <Link to="/register" style={{ textDecoration: "none" }}>
+                Create an account
+                </Link>
             </p>
         </div>
     );
 };
 
-export default App;
+export default LoginPage;
+
