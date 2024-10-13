@@ -41,7 +41,6 @@ const App = () => {
   const filteredRestaurants = restaurants.filter((restaurant) =>
     restaurant.restaurantName.toLowerCase().includes(searchTerm.toLowerCase()) // Use restaurantName
   );
-
   return (
     <div>
       <div className="listContainer">
