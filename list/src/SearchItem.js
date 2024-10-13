@@ -11,9 +11,8 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
   const handleMoreDetail = async (e) => {
     e.preventDefault();
     console.log("Successfully clicked the More Detail button");
-  
     startTransition(() => {
-      navigate("/restaurantde");
+      navigate(`/restaurantde/${id}`);
     });
   };
   return (
