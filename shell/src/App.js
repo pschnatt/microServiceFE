@@ -4,16 +4,18 @@ import LoginForm from '../../monolith/src/Pages/Login/LoginForm.jsx';
 import SignUpForm from '../../monolith/src/Pages/Register/SignUpForm.jsx';
 import Navbar from '../components/navbar/Navbar.jsx'
 import Header from '../components/header/Header.jsx';
+import Mfe4 from 'mfe4/App';
 
 // Lazy load the micro frontends
 const Mfe1 = lazy(() => import('mfe1/App'));
 const Mfe2 = lazy(() => import('mfe2/App'));
 const Mfe3 = lazy(() => import('mfe3/App'));
-const Mfe4 = lazy(() => import('mfe4/App'));
+// const Mfe4 = lazy(() => import('mfe4/App'));
 const Home = lazy(() => import('mfe5/App'));
 const Bookingde = lazy(() => import('mfe6/App'));
 const Restaurantdetail = lazy(() => import('mfe7/App'));
 const Confirmbooking = lazy(() => import('mfe8/App'));
+const Payment = lazy(() => import('mfe9/App'));
 
 const NavbarWrapper = () => {
     const location = useLocation();
@@ -30,7 +32,7 @@ const NavbarWrapper = () => {
 const HeaderWrapper = () => {
     const location = useLocation();
     
-    const noHeaderRoutes = ['/login', '/register', '/completeBooking', '/restaurant', '/bookingdetail', '/bookinghistory', '/restaurantde'];
+    const noHeaderRoutes = ['/login', '/register', '/completeBooking', '/restaurant', '/bookingdetail', '/bookinghistory', '/restaurantde', '/payment'];
 
     const shouldShowHeader = !noHeaderRoutes.includes(location.pathname);
   
@@ -53,6 +55,8 @@ const App = () => {
                         <li><Link to="/completeBooking">Complete Booking</Link></li> {/* New link */}
                         <li><Link to="/restaurantde">Restaurant Detail</Link></li> {/* New link */}
                         <li><Link to="/restaurant">Restaurant List</Link></li>
+                        <li><Link to="/payment">Payment</Link></li>
+
                     </ul>
                 </nav>
 
@@ -68,6 +72,7 @@ const App = () => {
                         <Route path="/restaurantde" element={<Restaurantdetail />} /> {/* Route for restaurant detail */}
                         <Route path="/restaurant" element={<Mfe4 />} />
                         <Route path="/login" element={<LoginForm />} /> 
+                        <Route path="/payment" element={<Payment />} /> 
                     </Routes>
                 </Suspense>
             </div>

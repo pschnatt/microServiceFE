@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { useNavigate, Link } from 'react-router-dom';
 
 import MailList from "./components/mailList/MailList.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,14 +14,14 @@ import {
 // import { toast } from 'react-toastify';
 
 const Restaurant = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
 
-  // const handleBookNowClick = () => {
-  //   navigate('/bookingdetail');
-  // };
+  const handleBookNowClick = () => {
+    navigate('/bookingdetail');
+  };
 
   // useEffect(() => {
   //   const id = localStorage.getItem("restaurant_id")
@@ -97,7 +98,7 @@ const Restaurant = () => {
           </div>
         )}
         <div className="restaurantWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={handleBookNowClick}>Reserve or Book Now!</button>
           <h1 className="restaurantTitle">{restaurant.name || "Restaurant Title"}</h1>
           <div className="restaurantAddress">
             <FontAwesomeIcon icon={faLocationDot} />
@@ -136,8 +137,7 @@ const Restaurant = () => {
               <h2>
                 <b>${restaurant.startingPrice || "Price not available"}</b> (Food Start Price)
               </h2>
-              {/* <button onClick={handleBookNowClick}>Reserve or Book Now!</button> */}
-              <button>Reserve or Book Now!</button>
+              <button onClick={handleBookNowClick}>Reserve or Book Now!</button>
             </div>
           </div>
         </div>

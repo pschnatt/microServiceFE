@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from 'react-router-dom';
 import "./App.css";
 
 const App = () => {
@@ -12,7 +13,7 @@ const App = () => {
         cpassword: "",
     });
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const onSIGNINTextClick = async (e) => {
         // e.preventDefault();
@@ -35,7 +36,9 @@ const App = () => {
         // } catch (error) {
         //     console.log(error);
         // }
+        e.preventDefault();
         console.log("Successfully Click the Register button");
+        navigate("/login"); // Ensure this route exists in your shell app
     };
     return (
         <div className="loginPage-container"> {/* Consider renaming class to registerPage-container */}
@@ -107,9 +110,9 @@ const App = () => {
 
             <p>
                 Already registered? 
-                <a href="#" style={{ textDecoration: "none" }}>
+                <Link to="/login" style={{ textDecoration: "none" }}>
                     Sign in here
-                </a>
+                </Link>
             </p>
         </div>
     );

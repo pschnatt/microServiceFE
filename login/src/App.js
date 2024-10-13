@@ -100,8 +100,6 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         console.log("Successfully clicked the Login button");
-
-        // After successful login, navigate to the Home page
         navigate("/"); // Ensure this route exists in your shell app
     };
 

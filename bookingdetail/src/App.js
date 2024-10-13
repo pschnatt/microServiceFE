@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 const App = () => {
@@ -31,9 +32,18 @@ const App = () => {
   //   }
   // };
 
-  const handleConfirmBooking = () => {
-    navigate('/confirmbooking'); // Navigate to confirm booking page
+  const navigate = useNavigate(); // Initialize the navigate function from useNavigate
+
+  const handlePayByCash = () => {
+    // Navigate to /confirmbooking if the user chooses to pay by cash
+    navigate('/completeBooking');
   };
+
+  const handlePayNow = () => {
+    // Navigate to /payment if the user chooses to pay now
+    navigate('/payment');
+  };
+
 
   // Uncomment and implement this function as needed
   // const handleConfirmBooking = async (e) => {
@@ -158,7 +168,11 @@ const App = () => {
               <span>Special Request</span>
               <span>{specialReq}</span>
             </div>
-            <button className="confirmButton" onClick={handleConfirmBooking}>Confirm booking</button>
+            <div className="buttonContainer">
+              <button className="confirmButton cashButton" onClick={handlePayByCash}>Pay by Cash</button>
+              <button className="confirmButton payNowButton" onClick={handlePayNow}>Pay Now</button>
+          </div>
+
           </div>
         </div>
       </div>

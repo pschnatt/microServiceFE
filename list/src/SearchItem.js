@@ -1,7 +1,22 @@
 import React from 'react';
 import './searchItem.css';
+import { useNavigate } from 'react-router-dom';
+import { startTransition } from 'react';
+
 
 const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rating, maxseats }) => {
+
+  const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
+
+  const handleMoreDetail = async (e) => {
+    e.preventDefault();
+    console.log("Successfully clicked the More Detail button");
+  
+    // Wrap the navigation in startTransition to prevent suspending issues
+    startTransition(() => {
+      navigate("/restaurantde");
+    });
+  };
   return (
     <div className="searchItem" key={id}>
       <img src={imageUrl} alt={title} className="siImg" />
@@ -22,7 +37,7 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
         <div className="siDetailTexts">
           <span className="siPrice">Starting Price: ${startprice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          <button className="siCheckButton">More Detail</button>
+          <button className="siCheckButton" onClick={handleMoreDetail}>More Detail</button>
         </div>
       </div>
     </div>

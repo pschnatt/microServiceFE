@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 const mockHistory = [
@@ -48,9 +49,17 @@ const App = () => {
   const [selectedDate] = useState(new Date());
   const [destination] = useState("");
 
+  const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
+
+  const homeroute = async (e) => {
+      e.preventDefault();
+      console.log("Successfully clicked the Login button");
+      navigate("/"); // Ensure this route exists in your shell app
+  };
+
   return (
       <div className="booking-history">
-        <button className="back-button" onClick={() => navigate('/')}>Back to Home</button>
+        <button className="back-button" onClick={homeroute}>Back to Home</button>
         {/* <button className="back-button" onClick={handleList}>Back to List</button> */}
         <h2>Booking History</h2>
         <div className="filters">

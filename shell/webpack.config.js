@@ -47,6 +47,7 @@ module.exports = {
         mfe6: 'app6@http://localhost:3006/remoteEntry.js',
         mfe7: 'app7@http://localhost:3007/remoteEntry.js',
         mfe8: 'app8@http://localhost:3008/remoteEntry.js',
+        mfe9: 'app9@http://localhost:3009/remoteEntry.js',
       },
       shared: { react: { singleton: true }, 'react-dom': { singleton: true }, "react-router-dom": { singleton: true } },
     }),

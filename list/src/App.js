@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import SearchItem from "./SearchItem";
+import { useNavigate, Link } from "react-router-dom";
 
 const Mfe3 = lazy(() => import('mfe3/App'));
 
@@ -140,16 +141,18 @@ const App = () => {
           <div className="listSidebar">
             <div className="listResult">
               {filteredRestaurants.map((restaurant) => (
-                <SearchItem
-                  id={restaurant.restaurantId}
-                  imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
-                  title={restaurant.name}
-                  address={restaurant.address || "N/A"}
-                  phoneNumber={restaurant.phoneNumber}
-                  startprice={restaurant.startingPrice || "20"}
-                  Rating={restaurant.rating || "N/A"}
-                  maxseats={restaurant.totalSeats || "30"}
-                />
+                <Suspense fallback={<div>Loading restaurant details...</div>}>
+                  <SearchItem
+                    id={restaurant.restaurantId}
+                    imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
+                    title={restaurant.name}
+                    address={restaurant.address || "N/A"}
+                    phoneNumber={restaurant.phoneNumber}
+                    startprice={restaurant.startingPrice || "20"}
+                    Rating={restaurant.rating || "N/A"}
+                    maxseats={restaurant.totalSeats || "30"}
+                  />
+                </Suspense>
               ))}
             </div>
             <Mfe3 />
