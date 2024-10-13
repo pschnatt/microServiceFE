@@ -5,6 +5,8 @@ import SignUpForm from '../../monolith/src/Pages/Register/SignUpForm.jsx';
 import Navbar from '../components/navbar/Navbar.jsx'
 import Header from '../components/header/Header.jsx';
 import Mfe4 from 'mfe4/App';
+import axios from 'axios';
+
 
 // Lazy load the micro frontends
 const Mfe1 = lazy(() => import('mfe1/App'));
@@ -38,6 +40,9 @@ const HeaderWrapper = () => {
   
     return shouldShowHeader ? <Header /> : null;
   };
+
+  axios.defaults.baseURL = "http://localhost:3000"
+  axios.defaults.withCredential = true  
 
 const App = () => {
     return (

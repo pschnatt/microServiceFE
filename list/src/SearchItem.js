@@ -12,7 +12,6 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
     e.preventDefault();
     console.log("Successfully clicked the More Detail button");
   
-    // Wrap the navigation in startTransition to prevent suspending issues
     startTransition(() => {
       navigate("/restaurantde");
     });

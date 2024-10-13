@@ -1,97 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { Suspense, lazy } from 'react';
 import './App.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import SearchItem from "./SearchItem";
-import { useNavigate, Link } from "react-router-dom";
-
-const Mfe3 = lazy(() => import('mfe3/App'));
-
-const mockRestaurant = [
-  {
-    restaurantId: "1234455",
-    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
-    name: "TESTTT",
-    address: "123 Main St",
-    phoneNumber: "12341244",
-    startingPrice: 12,
-    rating: 10,
-    totalSeats: 10,
-    description: "asdfafsdf"
-  },
-  {
-    restaurantId: "77777777776",
-    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
-    name: "SECONDD",
-    address: "123 Main St",
-    phoneNumber: "990099009",
-    startingPrice: 99.99,
-    rating: 5,
-    totalSeats: 10,
-    description: "Hello world"
-  },
-  {
-    restaurantId: "1234455",
-    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
-    name: "TESTTT",
-    address: "123 Main St",
-    phoneNumber: "12341244",
-    startingPrice: 12,
-    rating: 10,
-    totalSeats: 10,
-    description: "asdfafsdf"
-  },
-  {
-    restaurantId: "77777777776",
-    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
-    name: "SECONDD",
-    address: "123 Main St",
-    phoneNumber: "990099009",
-    startingPrice: 99.99,
-    rating: 5,
-    totalSeats: 10,
-    description: "Hello world"
-  },
-  {
-    restaurantId: "1234455",
-    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
-    name: "TESTTT",
-    address: "123 Main St",
-    phoneNumber: "12341244",
-    startingPrice: 12,
-    rating: 10,
-    totalSeats: 10,
-    description: "asdfafsdf"
-  },
-  {
-    restaurantId: "77777777776",
-    imageUrl: "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg",
-    name: "SECONDD",
-    address: "123 Main St",
-    phoneNumber: "990099009",
-    startingPrice: 99.99,
-    rating: 5,
-    totalSeats: 10,
-    description: "Hello world"
-  },
-];
+import axios from 'axios'; 
 
 const App = () => {
   console.log("Rendering MFE 4");
   const [date, setDate] = useState(new Date());
   const [openDate, setOpenDate] = useState(false);
   const [seats, setSeats] = useState(1);
-  const [restaurants, setRestaurants] = useState(mockRestaurant);
+  const [restaurants, setRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null); 
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/api/restaurant/get');
+        console.log(response.data);
+        
+        if (Array.isArray(response.data.restaurants)) {
+          setRestaurants(response.data.restaurants); // Set the fetched restaurant data
+        } else {
+          setError("Restaurants data is not in expected format");
+        }
+      } catch (err) {
+        setError("Failed to fetch restaurant data");
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const filteredRestaurants = restaurants.filter((restaurant) =>
-    restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
+    restaurant.restaurantName.toLowerCase().includes(searchTerm.toLowerCase()) // Use restaurantName
   );
 
   return (
@@ -138,24 +86,19 @@ const App = () => {
             </div>
             <button>Search</button>
           </div>
-          <div className="listSidebar">
-            <div className="listResult">
-              {filteredRestaurants.map((restaurant) => (
-                <Suspense fallback={<div>Loading restaurant details...</div>}>
-                  <SearchItem
-                    id={restaurant.restaurantId}
-                    imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
-                    title={restaurant.name}
-                    address={restaurant.address || "N/A"}
-                    phoneNumber={restaurant.phoneNumber}
-                    startprice={restaurant.startingPrice || "20"}
-                    Rating={restaurant.rating || "N/A"}
-                    maxseats={restaurant.totalSeats || "30"}
-                  />
-                </Suspense>
-              ))}
-            </div>
-            <Mfe3 />
+          <div className="listResult">
+            {filteredRestaurants.map((restaurant) => (
+              <SearchItem
+                id={restaurant.restaurantId}
+                imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
+                title={restaurant.restaurantName}
+                address={restaurant.location || "N/A"}
+                phoneNumber={restaurant.contactInfo.phoneNumber}
+                startprice={restaurant.cost || "20"}
+                Rating={restaurant.type || "American"}
+                maxseats={restaurant.capaicity || "30"}
+              />
+            ))}
           </div>
         </div>
       </div>
