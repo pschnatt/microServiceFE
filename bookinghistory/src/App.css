@@ -103,3 +103,7 @@
 .back-button:hover {
   background-color: #45a049;
 }
+
+.btn-small {
+  width: 50px;
+}
