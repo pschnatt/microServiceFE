@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import "./App.css";
+import axios from 'axios';
 
 const App = () => {
     console.log("Rendering MFE 2");
 
     const [data, setData] = useState({
-        username: "",
         email: "",
         phonenumber: "",
         password: "",
@@ -16,29 +16,27 @@ const App = () => {
     const navigate = useNavigate();
 
     const onSIGNINTextClick = async (e) => {
-        // e.preventDefault();
-        // const { username, email, phonenumber, password, cpassword } = data;
-        // try {
-        //     const { data } = await axios.post("/register", {
-        //         username,
-        //         email,
-        //         phonenumber,
-        //         password,
-        //         cpassword,
-        //     });
-        //     if (data.error) {
-        //         toast.error(data.error);
-        //     } else { 
-        //         setData({});
-        //         toast.success("Sign Up Successful!");
-        //         navigate("/login");
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        // }
         e.preventDefault();
-        console.log("Successfully Click the Register button");
-        navigate("/login"); // Ensure this route exists in your shell app
+        try {
+            console.log("Registering user:");
+            const userData = {
+                email: data.email,
+                phoneNumber: data.phonenumber,
+                password: data.password,
+                confirmedPassword: data.cpassword,
+
+            };
+            console.log(userData);
+            const response = await axios.post('http://127.0.0.1:8080/api/user/register', userData);
+            if (response.status === 200) {
+                navigate("/login");
+                console.log("Successfully Registered:", response.data);
+            } else {
+                throw new Error('Failed to register the user');
+            }
+         } catch (error) {
+            console.error("Error registering user:", error.message);
+         }
     };
     return (
         <div className="loginPage-container"> {/* Consider renaming class to registerPage-container */}
@@ -68,8 +66,8 @@ const App = () => {
                     name="phoneNumber"
                     placeholder="Enter your Phone Number"
                     className="loginPage-input"
-                    value={data.phoneNumber}
-                    onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                    value={data.phonenumber}
+                    onChange={(e) => setData({ ...data, phonenumber: e.target.value })}
                     required
                 />
 
@@ -96,8 +94,8 @@ const App = () => {
                     name="confirmPassword"
                     placeholder="Confirm your Password"
                     className="loginPage-input"
-                    value={data.confirmPassword}
-                    onChange={(e) => setData({ ...data, confirmPassword: e.target.value })}
+                    value={data.cpassword}
+                    onChange={(e) => setData({ ...data, cpassword: e.target.value })}
                     required
                 />
 
