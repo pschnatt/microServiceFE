@@ -26,6 +26,7 @@ const LoginPage = () => {
             if (response.status === 200) {
                 setMessage(response.data.message); // Optionally, display a message
                 console.log("User logged in:", response.data.user);
+                localStorage.setItem('jwt_token', response.data.token);
                 navigate("/");
             } else {
                 setError("Login failed. Please check your credentials.");

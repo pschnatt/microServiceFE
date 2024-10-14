@@ -91,6 +91,7 @@ const App = () => {
             <div className="listResult">
               {filteredRestaurants.map((restaurant) => (
                 <SearchItem
+                  key={restaurant.restaurantId} 
                   id={restaurant.restaurantId}
                   imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
                   title={restaurant.restaurantName}
