@@ -6,7 +6,9 @@ import { startTransition } from 'react';
 
 const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rating, maxseats }) => {
 
-  const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
+  const navigate = useNavigate();
+
+  const userId = 100;
 
   const handleMoreDetail = async (e) => {
     e.preventDefault();
@@ -15,6 +17,24 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
       navigate(`/restaurantde/${id}`);
     });
   };
+
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8080/api/restaurant/${userId}/delete/${id}`);
+      console.log("Delete response:", response.data);
+      
+      // Remove the deleted restaurant from the UI
+      setRestaurants((prevRestaurants) =>
+        prevRestaurants.filter((restaurant) => restaurant.id !== id)
+      );
+    } catch (error) {
+      console.error("Failed to delete restaurant:", error);
+      setError("Failed to delete restaurant. Please try again.");
+    }
+  };
+
+
   return (
     <div className="searchItem" key={id}>
       <img src={imageUrl} alt={title} className="siImg" />
@@ -36,6 +56,9 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
           <span className="siPrice">Starting Price: ${startprice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
           <button className="siCheckButton" onClick={handleMoreDetail}>More Detail</button>
+          {userId === 200 && (
+            <button className="siDeleteButton" onClick={handleDelete}>Delete</button>
+          )}
         </div>
       </div>
     </div>

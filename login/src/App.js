@@ -1,106 +1,38 @@
-// import React, { Suspense, useState } from "react";
-// import "./LoginPage.css";
-// // const CartApp = React.lazy(() => import('app2/App'));
-
-// const App = () => {
-//     const [data, setData] = useState({
-//         email: "",
-//         password: "",
-//     });
-
-//     // const navigate = useNavigate();
-
-//     const handleLogin = async (e) => {
-//         // e.preventDefault();
-//         // const { email, password } = data;
-//         // try {
-//         //     const { data } = await axios.post(
-//         //         "/login",
-//         //         {
-//         //             email,
-//         //             password,
-//         //         },
-//         //         {
-//         //             withCredentials: true,
-//         //         }
-//         //     );
-//         //     if (data.error) {
-//         //         toast.error(data.error);
-//         //     } else {
-//         //         setData({});
-//         //         toast.success("Login Successful!");
-//         //         navigate('/');
-//         //     }
-//         // } catch (error) {
-//         //     console.log(error);
-//         // }
-//         console.log("Successfully Click the Login button");
-//     };
-//     return (
-//         <div className="main">
-//             <h1>Sign</h1>
-//             <h3>Enter your login credentials</h3>
-//             <form onSubmit={handleLogin}>
-//                 <label htmlFor="first">
-//                     Username:
-//                 </label>
-//                 <input
-//                     type="text"
-//                     id="first"
-//                     name="first"
-//                     placeholder="Enter your Username"
-//                     value={data.email}
-//                     onChange={(e) => setData({ ...data, email: e.target.value })}
-//                     required
-//                 />
-
-//                 <label htmlFor="password">
-//                     Password:
-//                 </label>
-//                 <input
-//                     type="password"
-//                     id="password"
-//                     name="password"
-//                     placeholder="Enter your Password"
-//                     value={data.password}
-//                     onChange={(e) => setData({ ...data, password: e.target.value })}
-//                     required
-//                 />
-
-//                 <div className="wrap">
-//                     <button type="submit">
-//                         Submit
-//                     </button>
-//                 </div>
-//             </form>
-
-//             <p>Not registered? 
-//                 <a href="#" style={{ textDecoration: "none" }}>
-//                     Create an account
-//                 </a>
-//             </p>
-//         </div>
-//     );
-// };
-
-// export default App;
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./LoginPage.css"; // Make sure your CSS is imported correctly
+import axios from 'axios';
 
 const LoginPage = () => {
     const [data, setData] = useState({
         email: "",
         password: "",
     });
+    const [error, setError] = useState(null);  // Add error state
+    const [message, setMessage] = useState(""); // Optionally, track success messages
 
     const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log("Successfully clicked the Login button");
-        navigate("/"); // Ensure this route exists in your shell app
+        try {
+            const { email, password } = data; // Get email and password from data state
+
+            const response = await axios.post('http://127.0.0.1:8080/api/user/login', {
+                email,
+                password,
+            },{ withCredentials: true } );
+
+            if (response.status === 200) {
+                setMessage(response.data.message); // Optionally, display a message
+                console.log("User logged in:", response.data.user);
+                navigate("/");
+            } else {
+                setError("Login failed. Please check your credentials.");
+            }
+        } catch (err) {
+            setError("Login failed. Please check your credentials."); // Set error message in case of failure
+        }
     };
 
     return (

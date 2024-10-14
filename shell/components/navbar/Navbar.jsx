@@ -1,7 +1,7 @@
 import "./navbar.css";
 import { useNavigate } from "react-router-dom";
 import React,{ useState, useEffect } from "react";
-// import Cookies from 'js-cookie'; 
+import Cookies from 'js-cookie'; 
 import axios from 'axios';
 import RestaurantForm from '../Restaurantform/restaurantform.jsx';
 
@@ -31,11 +31,11 @@ const Navbar = () => {
     navigate(-1);
   };
 
-  // useEffect(() => {
-  //   const token = Cookies.get('token')
-  //   setIsLoggedIn(token !== undefined)
+  useEffect(() => {
+    const token = Cookies.get('token')
+    setIsLoggedIn(token !== undefined)
     
-  // }, []);  
+  }, []);  
 
   const CreateRestaurant = () => {
     setIsFormOpen(true);
@@ -67,12 +67,12 @@ const Navbar = () => {
         <div className="navItems">
           {isLoggedIn ? (
             <>
+              <button className="navButton" onClick={() => setIsFormOpen(true)}>Create Restaurant</button>
               <button className="navButton" onClick={handleHistory}>History</button>
               <button className="navButton" onClick={handleLogoutClick}>Logout</button>
             </>
           ) : (
             <>
-              <button className="navButton" onClick={() => setIsFormOpen(true)}>Create Restaurant</button>
               <button className="navButton" onClick={handleRegisterClick}>Register</button>
               <button className="navButton" onClick={handleLoginClick}>Login</button>
             </>
