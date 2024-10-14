@@ -1,14 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './searchItem.css';
 import { useNavigate } from 'react-router-dom';
 import { startTransition } from 'react';
-
+import axios from 'axios'; 
+import { jwtDecode } from 'jwt-decode';
 
 const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rating, maxseats }) => {
 
   const navigate = useNavigate();
+  const [userId, setUserId] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
 
-  const userId = 100;
+  const fetchRestaurants = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8080/api/restaurant/get');
+      console.log(response.data);
+      
+      if (Array.isArray(response.data.restaurants)) {
+        setRestaurants(response.data.restaurants); // Set the fetched restaurant data
+      } else {
+        setError("Restaurants data is not in expected format");
+      }
+    } catch (err) {
+      setError("Failed to fetch restaurant data");
+    }
+  };
+
+  useEffect(() => {
+    const verifyUser = async () => {
+      const token = localStorage.getItem('jwt_token'); // Get the token from local storage
+      if (!token) {
+        console.error('No token available. User is not authenticated.');
+        return; // Exit if there's no token
+      }
+
+      try {
+        // Decode the token to get the user ID
+        console.log(token);
+        const decodedToken = jwtDecode(token); // Ensure you're using the correct function
+        console.log(decodedToken);
+        const userId = decodedToken.userId; // Extract user ID from the decoded token
+
+        // Optional: You can check if the token is expired and handle it accordingly
+        const currentTime = Date.now() / 1000; // Current time in seconds
+        if (decodedToken.exp < currentTime) {
+          console.error('Token has expired. User needs to log in again.');
+          localStorage.removeItem('jwt_token'); // Optionally remove the expired token
+          return; // Exit if the token is expired
+        }
+
+        console.log(userId);
+        setUserId(userId); // Set user ID from the decoded token
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    };
+
+    verifyUser();
+  }, []);
 
   const handleMoreDetail = async (e) => {
     e.preventDefault();
@@ -18,13 +67,12 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
     });
   };
 
-
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`http://127.0.0.1:8080/api/restaurant/${userId}/delete/${id}`);
       console.log("Delete response:", response.data);
+      navigate('/restaurant');
       
-      // Remove the deleted restaurant from the UI
       setRestaurants((prevRestaurants) =>
         prevRestaurants.filter((restaurant) => restaurant.id !== id)
       );
@@ -56,7 +104,7 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
           <span className="siPrice">Starting Price: ${startprice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
           <button className="siCheckButton" onClick={handleMoreDetail}>More Detail</button>
-          {userId === 200 && (
+          {userId === "670d1de86a105f57483f4291" && (
             <button className="siDeleteButton" onClick={handleDelete}>Delete</button>
           )}
         </div>

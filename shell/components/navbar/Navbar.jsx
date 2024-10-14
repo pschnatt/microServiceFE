@@ -32,8 +32,9 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const token = Cookies.get('token')
-    setIsLoggedIn(token !== undefined)
+    const token = Cookies.get('jwt_token');
+    console.log("JWT Token:", token); // Log the token value
+    setIsLoggedIn(token !== undefined);
     
   }, []);  
 
