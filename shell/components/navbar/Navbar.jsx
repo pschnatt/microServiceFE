@@ -19,8 +19,9 @@ const Navbar = () => {
   };
 
   const handleLogoutClick = () => {
-    Cookies.remove('token'); 
-    navigate("/login");
+    localStorage.removeItem('jwt_token');
+    navigate("/");
+    window.location.reload();
   };
 
   const handleHistory = () => {
@@ -32,10 +33,17 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const token = Cookies.get('jwt_token');
-    console.log("JWT Token:", token); // Log the token value
-    setIsLoggedIn(token !== undefined);
-    
+    const verifyUser = async () => {
+      const token = localStorage.getItem('jwt_token'); // Get the token from local storage
+      if (!token) {
+        console.error('No token available. User is not authenticated.');
+        setIsLoggedIn(false);
+        return; // Exit if there's no token
+      } else {
+        setIsLoggedIn(true);
+      }
+    };
+    verifyUser();
   }, []);  
 
   const CreateRestaurant = () => {
