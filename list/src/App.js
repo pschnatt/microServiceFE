@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
 import './App.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import SearchItem from "./SearchItem";
 import axios from 'axios'; 
+
+const Mfe3 = lazy(() => import('mfe3/App'));
 
 const App = () => {
   console.log("Rendering MFE 4");
@@ -85,19 +87,22 @@ const App = () => {
             </div>
             <button>Search</button>
           </div>
-          <div className="listResult">
-            {filteredRestaurants.map((restaurant) => (
-              <SearchItem
-                id={restaurant.restaurantId}
-                imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
-                title={restaurant.restaurantName}
-                address={restaurant.location || "N/A"}
-                phoneNumber={restaurant.contactInfo.phoneNumber}
-                startprice={restaurant.cost || "20"}
-                Rating={restaurant.type || "American"}
-                maxseats={restaurant.capaicity || "30"}
-              />
-            ))}
+          <div className="listSidebar">
+            <div className="listResult">
+              {filteredRestaurants.map((restaurant) => (
+                <SearchItem
+                  id={restaurant.restaurantId}
+                  imageUrl={restaurant.imageUrl || "https://media-cdn.tripadvisor.com/media/photo-s/27/9f/45/bc/restaurant.jpg"}
+                  title={restaurant.restaurantName}
+                  address={restaurant.location || "N/A"}
+                  phoneNumber={restaurant.contactInfo.phoneNumber}
+                  startprice={restaurant.cost || "20"}
+                  Rating={restaurant.type || "American"}
+                  maxseats={restaurant.capaicity || "30"}
+                />
+              ))}
+            </div>
+            <Mfe3 />
           </div>
         </div>
       </div>
