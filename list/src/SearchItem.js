@@ -4,27 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { startTransition } from 'react';
 import axios from 'axios'; 
 import { jwtDecode } from 'jwt-decode';
+import RestaurantUpdateForm from './components/RestaurantUpdateForm.jsx';
 
 const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rating, maxseats }) => {
 
   const navigate = useNavigate();
   const [userId, setUserId] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
-
-  const fetchRestaurants = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:8080/api/restaurant/get');
-      console.log(response.data);
-      
-      if (Array.isArray(response.data.restaurants)) {
-        setRestaurants(response.data.restaurants); // Set the fetched restaurant data
-      } else {
-        setError("Restaurants data is not in expected format");
-      }
-    } catch (err) {
-      setError("Failed to fetch restaurant data");
-    }
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -82,6 +70,21 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
     }
   };
 
+  const handleUpdate = (restaurantData) =>  {
+    console.log(restaurantData)
+    const userId = "670d1de86a105f57483f4291";
+    try {
+      const response = axios.put(`http://127.0.0.1:8080/api/restaurant/${userId}/update/${id}`, restaurantData);
+        if (response.status === 200) {
+            console.log("Restaurant updated successfully:", response.data);
+        } else {
+            throw new Error('Failed to update the restaurant');
+        }
+    } catch (error) {
+      console.error("Error updating restaurant:", error.message);
+    }
+    setIsFormOpen(false);
+  };
 
   return (
     <div className="searchItem" key={id}>
@@ -105,10 +108,16 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
           <span className="siTaxOp">Includes taxes and fees</span>
           <button className="siCheckButton" onClick={handleMoreDetail}>More Detail</button>
           {userId === "670d1de86a105f57483f4291" && (
-            <button className="siDeleteButton" onClick={handleDelete}>Delete</button>
+            <>
+              <button className="siDeleteButton" onClick={handleDelete}>Delete</button>
+              <button className="siDeleteButton" onClick={() => setIsFormOpen(true)}>Update</button>
+            </>
           )}
         </div>
       </div>
+      {isFormOpen && (
+                <RestaurantUpdateForm onSubmit={handleUpdate} onClose={() => setIsFormOpen(false)} />
+            )}
     </div>
   );
 };

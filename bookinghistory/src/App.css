@@ -59,17 +59,17 @@
   background-color: #f1f1f1;
 }
 
-.booking-history .pending {
+.booking-history .Pending {
   color: #ff8c00;
   font-weight: bold;
 }
 
-.booking-history .cancelled {
+.booking-history .Cancelled {
   color: #ff1010;
   font-weight: bold;
 }
 
-.booking-history .completed {
+.booking-history .Completed {
   color: #28a745;
   font-weight: bold;
 }

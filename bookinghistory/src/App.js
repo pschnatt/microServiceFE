@@ -1,49 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
-
-const mockHistory = [
-  {
-    restaurantid: 1,
-    restaurantname: 'Pasta Palace',
-    date: '2024-10-01',
-    price: 50,
-    seat: 2,
-    status: 'Completed',
-  },
-  {
-    restaurantid: 2,
-    restaurantname: 'Sushi Central',
-    date: '2024-10-02',
-    price: 75,
-    seat: 4,
-    status: 'Pending',
-  },
-  {
-    restaurantid: 3,
-    restaurantname: 'Steak House',
-    date: '2024-10-03',
-    price: 100,
-    seat: 6,
-    status: 'Cancelled',
-  },
-  {
-    restaurantid: 4,
-    restaurantname: 'Taco Town',
-    date: '2024-10-04',
-    price: 30,
-    seat: 2,
-    status: 'Completed',
-  },
-];
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { parse, format } from 'date-fns';
 
 const App = () => {
   console.log("Rendering MFE 3");
   const [filter, setFilter] = useState('ALL');
-  const [history, setHistory] = useState(mockHistory); // Set mock history directly
+  const [history, setHistory] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      console.log('Fetching bookings Inside...');
+      const token = localStorage.getItem('jwt_token'); // Get the token from local storage
+      if (!token) {
+        console.error('No token available. User is not authenticated.');
+        return; // Exit if there's no token
+      }
+      console.log('Fetching After Token...');
+      try {
+        console.log('Fetching Inside Try...');
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.userId;
+        console.log('Fetching After DECODE...');
+        console.log('Fetching userId: ', userId);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          console.error('Token has expired. User needs to log in again.');
+          localStorage.removeItem('jwt_token');
+          return;
+        }
+        console.log('Fetching Before Response...');
+        console.log(`http://127.0.0.1:8080/api/booking/get/userId/${userId}`);
+        const response = await axios.get(`http://127.0.0.1:8080/api/booking/get/userId/${userId}`);
+        console.log('adfadfawedfgasefgafeg');
+        console.log(response.data.bookings);
+        console.log('ewfgwetrhwethwetherthjwrtjwt');
+        
+        if (Array.isArray(response.data.bookings)) {
+          setHistory(response.data.bookings);
+        } else {
+          setError("history data is not in expected format");
+        }
+      } catch (err) {
+        console.log("error zaza");
+        setError("Failed to fetch history data");
+      }
+    };
+    console.log("Fetching bookings...");
+    fetchBookings();
+    console.log("Fetching bookings complete...");
+  }, []);
 
   const filteredBookings = history.filter(
-    (booking) => filter === 'ALL' || booking.status.toLowerCase() === filter.toLowerCase()
+    (booking) => filter === 'ALL' || booking.bookingStatus === filter
   );
 
   const [selectedDate] = useState(new Date());
@@ -88,16 +100,20 @@ const App = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredBookings.map((booking) => (
-              <tr key={`${booking.restaurantid} : ${booking.date}`}>
-                <td>{booking.restaurantid}</td>
-                <td>{booking.restaurantname}</td>
-                <td>{booking.date}</td>
-                <td>{booking.price}</td>
-                <td>{booking.seat}</td>
-                <td className={booking.status.toLowerCase()}>{booking.status}</td>
+            {filteredBookings.map((booking) => {
+              const parsedDate = parse(booking.createdWhen, 'ddMMyyyy', new Date());
+              const formattedDate = format(parsedDate, 'MMMM do, yyyy');
+              return (
+              <tr key={`${booking.restaurantId} : ${formattedDate}`}>
+                <td>{booking.restaurantId}</td>
+                <td>{booking.reservationRequest}</td>
+                <td>{formattedDate}</td>
+                <td>{booking.costPerPerson}</td>
+                <td>{booking.guestNumber}</td>
+                <td className={booking.bookingStatus}>{booking.bookingStatus}</td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
         <button className="details-button" style={{ marginTop: '20px' }}>

@@ -53,7 +53,7 @@ const Navbar = () => {
   // Function to handle form submission
   const handleCreateRestaurant = (restaurantData) => {
     console.log(restaurantData)
-    const userId = "12345";
+    const userId = "670d1de86a105f57483f4291";
     try {
         const response = axios.post(`http://127.0.0.1:8080/api/restaurant/${userId}/create`, restaurantData);
         if (response.status === 200) {
