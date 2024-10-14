@@ -20,7 +20,7 @@ const Restaurant = () => {
   const [open, setOpen] = useState(false);
 
   const handleBookNowClick = () => {
-    navigate('/bookingdetail');
+    navigate(`/bookingdetail/${restaurantId}`); // Send restaurantId with the navigation
   };
 
   useEffect(() => {

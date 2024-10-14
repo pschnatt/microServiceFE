@@ -58,7 +58,7 @@ const App = () => {
                         <Route path="/login" element={<Mfe1 />} />
                         <Route path="/register" element={<Mfe2 key="mfe2" />} />
                         <Route path="/bookinghistory" element={<Mfe3 key="mfe3" />} />
-                        <Route path="/bookingdetail" element={<Bookingde />} /> {/* Route for booking detail */}
+                        <Route path="/bookingdetail/:restaurantId" element={<Bookingde />} /> {/* Route for booking detail */}
                         <Route path="/completeBooking" element={<Confirmbooking />} /> {/* Route for complete booking */}
                         <Route path="/restaurantde/:restaurantId" element={<Restaurantdetail />} /> {/* Route for restaurant detail */}
                         <Route path="/restaurant" element={<Mfe4 />} />
