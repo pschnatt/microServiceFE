@@ -1,95 +1,70 @@
-
-.HeaderContainer{
-	width: 100vw;
-	min-height: 100vh;
-	background: #34495e;
-	font-size: 1.2rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.container{
-	background: white;
-	max-width: 800px;
-	min-height: 500px;
-	display: flex;
-	justify-content:space-between;
-	align-items: flex-start;
-	padding: 0.5rem 1.5rem;
-}
-.left{
-	flex-basis: 50%;
-}
-.right{
-	flex-basis: 50%;
-  padding: 20px;
-  padding-top: 0px;
-}
-form{
-	padding: 1rem;
+.HeaderContainer {
+    width: 100vw;
+    min-height: 100vh;
+    background: #f4f6f9; /* Light background for better contrast */
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-h3{
-	margin-top: 1rem;
-	color:#2c3e50;
-	}
-
-form input[type="text"]{
-	width: 100%;
-	padding: 0.5rem 0.7rem;
-	margin: 0.5rem 0;
-	outline: none;
+.container {
+    background: white;
+    max-width: 800px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    padding: 2rem; /* Increased padding for more space */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
 }
 
-#zip{
-	display: flex;
-	margin-top: 0.5rem;
-}
-#zip select{
-	padding: 0.5rem 0.7rem;
-}
-#zip input[type="number"]{
-	padding: 0.5rem 0.7rem;
-	margin-left: 5px;	
-}
-input[type="submit"]{
-	width: 100%;
-	padding: 0.7rem 1.5rem;
-	background: #34495e;
-	color: white;
-	border: none;
-	outline: none;
-	margin-top: 1rem;
-	cursor: pointer;
+h3 {
+    margin-top: 0; /* Remove top margin */
+    color: #2c3e50; /* Darker color for the main title */
+    font-weight: bold; /* Bold font for the title */
+    text-align: center; /* Center align title */
 }
 
-input[type="submit"]:hover{
-	background: #2c3e50;
+h4 {
+    margin-bottom: 0.5rem; /* Space below headings */
+    color: #34495e; /* Darker color for subheadings */
+}
+
+p {
+    margin: 0.5rem 0; /* Uniform spacing for paragraphs */
 }
 
 .billingPage-input {
-  width: 100%;
-  padding: 0.5rem 0.7rem;
-  margin: 0.5rem 0;
-  outline: none;
-  border: 1px solid #ccc; /* Add border styling */
-  border-radius: 4px; /* Optional: Rounded corners */
-  transition: border-color 0.3s; /* Smooth transition for focus effect */
+    width: 100%;
+    padding: 0.7rem 1rem; /* Increased padding */
+    margin-top: 20px; /* Add space above button */
+    background: #34495e; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s; /* Transition for hover effect */
+}
+
+.billingPage-input:hover {
+    background: #2c3e50; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+.qr-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align QR code */
+    margin: 1rem 0; /* Spacing around QR code */
+}
+
+.qr-code {
+    width: 150px; /* Set a consistent size for QR code */
+    height: 150px;
 }
 
 .button-container {
-  padding-top: 20px;
-  display: flex;
-  justify-content: flex-end; /* Aligns the button to the right */
-  margin-top: auto; /* Pushes the button to the bottom */
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
 }
-
-@media only screen and (max-width: 770px){
-	.container{
-		flex-direction: column;
-	}
-	.BodyContainer{
-		overflow-x: hidden;
-	}
-}
-

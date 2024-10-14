@@ -37,7 +37,11 @@ const HeaderWrapper = () => {
 
     const isRestaurantDetail = location.pathname.startsWith('/restaurantde/');
 
-    const shouldShowHeader = !noHeaderRoutes.includes(location.pathname) && !isRestaurantDetail;
+    const isBookingDetail = location.pathname.startsWith('/bookingdetail/');
+
+    const isPaymentDetail = location.pathname.startsWith('/payment/');
+
+    const shouldShowHeader = !noHeaderRoutes.includes(location.pathname) && !isRestaurantDetail && !isBookingDetail && !isPaymentDetail;
   
     return shouldShowHeader ? <Header /> : null;
   };
@@ -62,7 +66,7 @@ const App = () => {
                         <Route path="/completeBooking" element={<Confirmbooking />} /> {/* Route for complete booking */}
                         <Route path="/restaurantde/:restaurantId" element={<Restaurantdetail />} /> {/* Route for restaurant detail */}
                         <Route path="/restaurant" element={<Mfe4 />} />
-                        <Route path="/payment" element={<Payment />} /> 
+                        <Route path="/payment/:bookingId" element={<Payment />} /> 
                     </Routes>
                 </Suspense>
             </div>
@@ -70,16 +74,3 @@ const App = () => {
     );
 };
 export default App;
-                // {/* <nav>
-                //     <ul>
-                //         <li><Link to="/">Home</Link></li>
-                //         <li><Link to="/login">Micro Frontend 1</Link></li>
-                //         <li><Link to="/register">Micro Frontend 2</Link></li>
-                //         <li><Link to="/bookinghistory">Booking History</Link></li>
-                //         <li><Link to="/bookingdetail">Booking Detail</Link></li> {/* New link */}
-                //         <li><Link to="/completeBooking">Complete Booking</Link></li> {/* New link */}
-                //         <li><Link to="/restaurantde">Restaurant Detail</Link></li> {/* New link */}
-                //         <li><Link to="/restaurant">Restaurant List</Link></li>
-                //         <li><Link to="/payment">Payment</Link></li>
-                //     </ul>
-                // </nav> */}
