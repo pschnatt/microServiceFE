@@ -1,201 +1,72 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import "./App.css";
 
 const App = () => {
-    const [data, setData] = useState({
-        fullName: '',
-        email: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: '',
-        cardNumber: '',
-        expMonth: '',
-        expYear: '',
-        cvv: ''
-    });
+    const [bookingData, setBookingData] = useState(null); // State to hold booking data
+    const { bookingId } = useParams();
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
+    useEffect(() => {
+        // Function to fetch booking details
+        const fetchBookingDetails = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8080/api/booking/get/bookingId/${bookingId}`);
+                const booking = response.data.booking;
+                setBookingData(booking); // Set the fetched booking data
+            } catch (error) {
+                console.error("Error fetching booking details:", error);
+            }
+        };
+
+        fetchBookingDetails();
+    }, [bookingId]);
+
+    const handleBack = () => {
+        navigate("/"); // Navigate back to the home page
     };
 
-    
-    const navigate = useNavigate(); // This should work as long as it's wrapped by a Router in the shell app
+    if (!bookingData) {
+        return <div>Loading...</div>; // Loading state while fetching booking data
+    }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted", data);
-        navigate("/completeBooking");
-        // Add your submit logic here
-    };
+    // Destructure with default values
+    const {
+        paymentId = '',
+        reservationDate = '',
+        reservationRequest = '',
+        guestNumber = 0,
+        costPerPerson = 0,
+        totalAmount = 0,
+        status = ''
+    } = bookingData;
+
+    // Constructing the QR code URL safely
+    const qrCodeUrl = totalAmount ? `https://promptpay.io/0824468446/${totalAmount}.png` : '';
 
     return (
         <div className="HeaderContainer">
-            <div className="BodyContainer">
-                <div className="container">
-                    <div className="left">
-                        <h3>BILLING ADDRESS</h3>
-                        <form onSubmit={handleSubmit}>
-                            <label>
-                                Full name
-                                <input
-                                    type="text"
-                                    name="fullName"
-                                    placeholder="Enter name"
-                                    className="billingPage-input"
-                                    value={data.fullName}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-
-                            <label>
-                                Email
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Enter email"
-                                    className="billingPage-input"
-                                    value={data.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-
-                            <label>
-                                Address
-                                <input
-                                    type="text"
-                                    name="address"
-                                    placeholder="Enter address"
-                                    className="billingPage-input"
-                                    value={data.address}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-
-                            <label>
-                                City
-                                <input
-                                    type="text"
-                                    name="city"
-                                    placeholder="Enter City"
-                                    className="billingPage-input"
-                                    value={data.city}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-
-                            <div id="zip">
-                                <label>
-                                    State
-                                    <select
-                                        name="state"
-                                        className="billingPage-input"
-                                        value={data.state}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value="">Choose State..</option>
-                                        <option value="Rajasthan">Rajasthan</option>
-                                        <option value="Hariyana">Hariyana</option>
-                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                    </select>
-                                </label>
-
-                                <label>
-                                    Zip code
-                                    <input
-                                        type="number"
-                                        name="zip"
-                                        placeholder="Zip code"
-                                        className="billingPage-input"
-                                        value={data.zip}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <div className="right">
-                        <h3>PAYMENT</h3>
-                        <form onSubmit={handleSubmit}>
-                            {/* <label>
-                                Accepted Card
-                                <br />
-                                <img src="image/card1.png" width="100" alt="Card 1" />
-                                <img src="image/card2.png" width="50" alt="Card 2" />
-                                <br /><br />
-                            </label> */}
-
-                        <label>
-                            Credit card number
-                            <input
-                                type="text"
-                                name="cardNumber"
-                                placeholder="Enter card number"
-                                className="billingPage-input"
-                                value={data.cardNumber}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
-
-                        <label>
-                            Exp month
-                            <input
-                                type="text"
-                                name="expMonth"
-                                placeholder="Enter Month"
-                                className="billingPage-input"
-                                value={data.expMonth}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
-
-                            <label>
-                                Exp year
-                                <input
-                                    type="text"
-                                    name="expYear"
-                                    className="billingPage-input"
-                                    placeholder="EXP YEAR"
-                                    value={data.expYear}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-
-                            <label>
-                                CVV
-                                <input  
-                                    type="text"
-                                    name="cvv"
-                                    placeholder="CVV"
-                                    className="billingPage-input"
-                                    value={data.cvv}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-                        
-                            <div className="button-container">
-                                <input
-                                    type="submit"
-                                    value="Proceed to Checkout"
-                                    className="billingPage-input" // Use the same class as the other inputs
-                                />
-                            </div>
-                            </form>
-                    </div>
+            <div className="container">
+                <h3>Booking Receipt</h3>
+                <div className="receipt">
+                    <h4>Booking Details</h4>
+                    <p><strong>Payment ID:</strong> {paymentId}</p>
+                    <p><strong>Reservation Date:</strong> {reservationDate}</p>
+                    <p><strong>Reservation Request:</strong> {reservationRequest}</p>
+                    <p><strong>Guest Number:</strong> {guestNumber}</p>
+                    <p><strong>Cost Per Person:</strong> ${costPerPerson}</p>
+                    <p><strong>Total Amount:</strong> ${totalAmount}</p>
+                    <p><strong>Status:</strong> {status}</p>
+                    {qrCodeUrl && (
+                        <div className="qr-code-container">
+                            <h4>Payment QR Code</h4>
+                            <img src={qrCodeUrl} alt="Payment QR Code" className="qr-code" />
+                        </div>
+                    )}
+                </div>
+                <div className="button-container">
+                    <button onClick={handleBack} className="billingPage-input">Back to Home</button>
                 </div>
             </div>
         </div>

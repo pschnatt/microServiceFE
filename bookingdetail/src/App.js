@@ -97,9 +97,30 @@ const App = () => {
     }
   };
 
-  const handlePayNow = () => {
-    // Navigate to /payment if the user chooses to pay now
-    navigate('/payment');
+  const handlePayNow =  async (e) => {
+    e.preventDefault();
+    try {
+      const startFrom = formatDateTime(startDate);
+      const to = formatDateTime(endDate);
+
+      const response = await axios.post(`http://127.0.0.1:8080/api/booking/${userId}/${restaurantId}/create`, {        
+        paymentId: "test2005",
+        reservationDate: { startFrom, to },
+        reservationRequest: specialReq,
+        guestNumber: parseInt(seats),
+        costPerPerson: parseInt(tableNumber),
+        paymentStatus: "Paid",
+        bookingStatus: "Completed"
+      });
+      if (response.status === 201) {
+        console.log(response.data.detail.bookingId)
+        const bookingId = response.data.detail.bookingId;
+        console.log(bookingId)
+        navigate(`/payment/${bookingId}`);
+      }
+    } catch (error) {
+      console.error("Error creating booking:", error);
+    }
   };
 
   return (
