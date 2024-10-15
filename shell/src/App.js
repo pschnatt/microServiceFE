@@ -16,6 +16,8 @@ const Bookingde = lazy(() => import('mfe6/App'));
 const Restaurantdetail = lazy(() => import('mfe7/App'));
 const Confirmbooking = lazy(() => import('mfe8/App'));
 const Payment = lazy(() => import('mfe9/App'));
+const Paymentform = lazy(() => import('mfe10/App'));
+const PaymentDetail= lazy(() => import('mfe11/App'));
 
 const NavbarWrapper = () => {
     const location = useLocation();
@@ -33,7 +35,7 @@ const HeaderWrapper = () => {
     const location = useLocation();
     const { restaurantId } = useParams();
     
-    const noHeaderRoutes = ['/login', '/register', '/completeBooking', '/restaurant', '/bookingdetail', '/bookinghistory', '/restaurantde/:restaurantId', '/payment'];
+    const noHeaderRoutes = ['/login', '/register', '/completeBooking', '/restaurant', '/bookingdetail', '/bookinghistory', '/restaurantde/:restaurantId', '/payment', , '/paymentform'];
 
     const isRestaurantDetail = location.pathname.startsWith('/restaurantde/');
 
@@ -67,6 +69,8 @@ const App = () => {
                         <Route path="/restaurantde/:restaurantId" element={<Restaurantdetail />} /> {/* Route for restaurant detail */}
                         <Route path="/restaurant" element={<Mfe4 />} />
                         <Route path="/payment/:bookingId" element={<Payment />} /> 
+                        <Route path="/paymentform" element={<Paymentform />} /> 
+                        <Route path="/paymentdetail" element={<PaymentDetail />} />
                     </Routes>
                 </Suspense>
             </div>

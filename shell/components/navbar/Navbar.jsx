@@ -18,6 +18,11 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const handleAdPayment = () => {
+    navigate("/paymentform");
+  };
+
+
   const handleLogoutClick = () => {
     localStorage.removeItem('jwt_token');
     navigate("/");
@@ -79,6 +84,7 @@ const Navbar = () => {
               <button className="navButton" onClick={() => setIsFormOpen(true)}>Create Restaurant</button>
               <button className="navButton" onClick={handleHistory}>History</button>
               <button className="navButton" onClick={handleLogoutClick}>Logout</button>
+              <button className="navButton" onClick={handleAdPayment}>Payment Detail</button>
             </>
           ) : (
             <>
