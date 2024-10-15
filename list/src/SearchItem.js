@@ -70,11 +70,11 @@ const SearchItem = ({ id, imageUrl, title, address, phoneNumber, startprice, Rat
     }
   };
 
-  const handleUpdate = (restaurantData) =>  {
+  const handleUpdate = async (restaurantData) =>  {
     console.log(restaurantData)
     const userId = "670d1de86a105f57483f4291";
     try {
-      const response = axios.put(`http://127.0.0.1:8080/api/restaurant/${userId}/update/${id}`, restaurantData);
+      const response = await axios.put(`http://127.0.0.1:8080/api/restaurant/${userId}/update/${id}`, restaurantData);
         if (response.status === 200) {
             console.log("Restaurant updated successfully:", response.data);
         } else {

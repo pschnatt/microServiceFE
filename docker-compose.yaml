@@ -1,68 +1,176 @@
-version: '3.8'
+version: '3.7'
 
 services:
-  bookingdetail:
-    build:
-      context: ./bookingdetail
-    ports:
-      - "3001:3000"  # Map host port 3001 to container port 3000
-
-  bookinghistory:
-    build:
-      context: ./bookinghistory
-    ports:
-      - "3002:3000"  # Map host port 3002 to container port 3000
-  
-  confirmbooking:
-    build:
-      context: ./confirmbooking
-    ports:
-      - "3003:3000"  # Map host port 3003 to container port 3000
-
-  home:
-    build:
-      context: ./home
-    ports:
-      - "3000:3000"  # Map host port 3000 to container port 3000
-    
-  list:
-    build:
-      context: ./list
-    ports:
-      - "3004:3000"  # Map host port 3004 to container port 3000
-    
-  login:
-    build:
-      context: ./login
-    ports:
-      - "3005:3000"  # Map host port 3005 to container port 3000
-    
-  # monolith:
-  #   build:
-  #     context: ./monolith
-  #   ports:
-  #     - "3006:3000"  # Map host port 3006 to container port 3000
-    
-  payment:
-    build:
-      context: ./payment
-    ports:
-      - "3007:3000"  # Map host port 3007 to container port 3000
-  
-  register:
-    build:
-      context: ./register
-    ports:
-      - "3008:3000"  # Map host port 3008 to container port 3000
-  
-  restaurantdetail:
-    build:
-      context: ./retaurantdetail
-    ports:
-      - "3009:3000"  # Map host port 3009 to container port 3000
-
   shell:
+    image: shell
     build:
       context: ./shell
+    container_name: shell
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
     ports:
-      - "3010:3000"  # Map host port 3010 to container port 3000
+      - "3000:3000"  # Map host port 3010 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./shell:/app  
+    working_dir: /app
+    
+
+  login:
+    image: login
+    build:
+      context: ./login
+    container_name: login
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3001:3001"  # Map host port 3005 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./login:/app  
+    working_dir: /app
+    
+
+  register:
+    image: register
+    build:
+      context: ./register
+    container_name: register
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3002:3002"  # Map host port 3008 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./register:/app  
+    working_dir: /app
+    
+
+  bookinghistory:
+    image: bookinghistory
+    build:
+      context: ./bookinghistory
+    container_name: bookinghistory
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3003:3003"  # Map host port 3002 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./bookinghistory:/app  
+    working_dir: /app
+    
+
+  list:
+    image: list
+    build:
+      context: ./list
+    container_name: list
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3004:3004"  # Map host port 3004 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./list:/app  
+    working_dir: /app
+    
+
+  home:
+    image: home
+    build:
+      context: ./home
+    container_name: home
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3005:3005"  # Map host port 3000 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./home:/app  
+    working_dir: /app
+    
+  bookingdetail:
+    image: bookingdetail
+    build:
+      context: ./bookingdetail
+    container_name: bookingdetail
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3006:3006"  # Map host port 3001 to container port 3000
+    command: npm start
+    volumes:
+      - ./bookingdetail:/app  
+    working_dir: /app
+    
+
+  retaurantdetail:
+    image: retaurantdetail
+    build:
+      context: ./retaurantdetail
+    container_name: retaurantdetail
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3007:3007"  # Map host port 3009 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./retaurantdetail:/app  
+    working_dir: /app
+    
+
+  confirmbooking:
+    image: confirmbooking
+    build:
+      context: ./confirmbooking
+    container_name: confirmbooking
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3008:3008"  # Map host port 3003 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./confirmbooking:/app  
+    working_dir: /app
+    
+ 
+  payment:
+    image: payment
+    build:
+      context: ./payment
+    container_name: payment
+    deploy: 
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+    ports:
+      - "3009:3009"  # Map host port 3007 to container port 3000
+    command: npm start
+    # volumes:
+    #   - ./payment:/app  
+    working_dir: /app
+    
+
+networks:
+  project-frontend-network:
+    external: true
+    driver: overlay
